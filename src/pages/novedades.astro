@@ -1,0 +1,23 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { getUpdates } from '@/libs/functions'
+import { NotificationIcon } from '@/assets/icons'
+import { MainHeader, UpdateCard } from '@/components/components'
+
+const headerData = {
+    icon: NotificationIcon.src,
+    title: 'Novedades institucionales',
+    description: 'Mantente informado sobre las últimas actualizaciones'
+}
+
+const updates = await getUpdates()
+---
+
+<Layout title="Novedades">
+    <main>
+        <MainHeader data={headerData} iconAnimation="animate__headShake"/>       
+        <article class="flex flex-col gap-6 w-[55%] animate__animated animate__fadeIn">
+            { updates.map(update => <UpdateCard update={update} client:load/>) }
+        </article>
+    </main>
+</Layout>

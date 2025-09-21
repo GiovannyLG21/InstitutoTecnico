@@ -1,1 +1,232 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@theme {
+    --color-primary: #f9791e;
+    --color-secondary: #91c316;
+    --color-surface: var(--color-gray-800);
+    --color-neutral: var(--color-gray-400);
+    --color-muted: var(--color-gray-300);
+
+    /** Text **/
+    --color-text: var(--color-surface);
+
+
+    /** Shadows **/
+    /* Normal shadow */
+    --shadow-md: 5px 5px 0px 0px rgba(162, 159, 159, .25);
+    --shadow-difused: 5px 5px 6px 0px rgba(162, 159, 159, .25);
+
+    /* Shadow orange */
+    --shadow-hover: 5px 5px 0px 0px rgba(249, 121, 30, 1);
+
+    /* Shadow green */
+    --shadow-hover-secondary: 5px 5px 0px 0px rgba(145, 195, 22, 1);
+
+
+    /** Generals **/
+    --transition-duration: 200ms;
+}
+
+
+
+/** ESSENTIALS **/
+
+html {
+    font-family: 'Nunito', Arial, Helvetica, sans-serif;
+    color: var(--color-text)
+}
+
+body {
+    @apply pt-[6.7rem];
+}
+
+#root {
+    @apply w-full h-full flex flex-col;
+}
+
+main {
+    @apply w-full flex flex-col items-center gap-12 py-10 px-12;
+}
+
+
+
+/** GENERALS **/
+
+/* Scrollbar */
+body,
+.overflow-y-auto {
+    @apply [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-track]:bg-gray-200 [&::-webkit-scrollbar-thumb]:bg-secondary/80 [&::-webkit-scrollbar-thumb]:cursor-pointer;
+}
+
+body::-webkit-scrollbar-thumb:hover,
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    @apply bg-secondary;
+}
+
+.overflow-y-auto {
+    @apply [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-lg;
+}
+
+/* Background */
+.bg-gradient {
+    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+}
+
+/* loader */
+.loading {
+    width: 50px;
+    padding: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--color-primary);
+    --_m:
+        conic-gradient(#0000 10%, #000),
+        linear-gradient(#000 0 0) content-box;
+    -webkit-mask: var(--_m);
+    mask: var(--_m);
+    -webkit-mask-composite: source-out;
+    mask-composite: subtract;
+    animation: l3 1s infinite linear;
+}
+
+@keyframes l3 {
+    to {
+        transform: rotate(1turn)
+    }
+}
+
+
+
+/** Animations **/
+
+.animate {
+    @apply transition-all duration-[var(--transition-duration)];
+}
+
+.animate--card {
+    @apply transition-all duration-[var(--transition-duration)] hover:-translate-x-1 hover:-translate-y-1;
+}
+
+/* Navbar logo hover animation */
+.logo {
+    --c: white;
+    /* the border color */
+    --b: 2px;
+    /* the border thickness*/
+    --g: 5px;
+    /* the gap on hover */
+
+    padding: calc(var(--g) + var(--b));
+    --_g: #0000 25%, var(--c) 0;
+    background:
+        conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) var(--_i, 200%) 0 /200% var(--_i, var(--b)) no-repeat,
+        conic-gradient(at bottom var(--b) left var(--b), var(--_g)) 0 var(--_i, 200%)/var(--_i, var(--b)) 200% no-repeat;
+    transition: .2s, background-position .2s .2s;
+    cursor: pointer;
+}
+
+.logo:hover {
+    --_i: 100%;
+    transition: .2s, background-size .2s .2s;
+}
+
+/* Navbar logo icon animation */
+.animate__animated.animate__bounce {
+    animation-delay: 100ms;
+    animation-iteration-count: 2;
+}
+
+/* Fade animation */
+.animate__animated.animate__fadeIn {
+    animation-delay: 150ms;
+    animation-duration: 1.5s;
+}
+
+/* Index animation */
+.index.animate__animated.animate__fadeIn {
+    animation-delay: 150ms;
+    animation-duration: 2s;
+}
+
+/* Services animation */
+.animate__animated.animate__fadeInLeft {
+    animation-duration: 1.25s;
+}
+
+/* Notices animation */
+.animate__animated.animate__heartBeat {
+    animation-delay: 250ms;
+    animation-duration: 2s;
+}
+
+/* Notification animation */
+.animate__animated.animate__headShake {
+    animation-delay: 250ms;
+    animation-duration: 800ms;
+    animation-iteration-count: 2;
+}
+
+
+/** Links **/
+
+.link--nav {
+    @apply text-lg text-white font-semibold relative;
+}
+
+.link--nav:after {
+    display: block;
+    position: absolute;
+    content: '';
+    background: none repeat scroll 0 0 transparent;
+    background: #fff;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    transition: width 0.3s ease 0s, left 0.3s ease 0s;
+}
+
+.link--nav:hover:after {
+    width: 100%;
+    left: 0;
+}
+
+.btn {
+    @apply w-full bg-primary text-white text-lg font-semibold rounded-lg py-1 cursor-pointer;
+}
+
+.btn--secondary {
+    @apply bg-secondary;
+}
+
+.btn.disabled {
+    @apply bg-muted;
+}
+
+/** Inputs **/
+form {
+    @apply h-full;
+}
+
+input,
+select {
+    @apply px-2 border-1 border-muted rounded-md h-8 focus-visible:outline-0 text-text;
+}
+
+textarea {
+    @apply border-1 border-muted text-text rounded-md p-2;
+}
+
+dialog {
+    @apply opacity-0 transition-all duration-550 ease-in-out;
+}
+
+dialog.active {
+    @apply opacity-100;
+}
+
+*:focus-visible {
+    @apply outline-0
+}

@@ -1,0 +1,69 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { DocumentIcon, WhiteDocumentIcon, GraduationHatIcon, CalendarIcon, WhiteCalendarIcon, NotificationIcon, NewIcon, PhoneIcon } from '@/assets/icons'
+import Logo from '@/assets/logo.svg'
+import { Card, Loader } from '@/components/components'
+import type { CardDataType } from '@/components/types'
+
+const servicesRequests: CardDataType[] = [
+    {
+        icon: DocumentIcon.src,
+        modalIcon: WhiteDocumentIcon.src,
+        title: 'Solicitud de constancias',
+        description: 'Solicita constancias de estudio, notas y otros documentos académicos',
+        modalDescription: 'Completa el formulario para solicitar tu constancia.',
+        color: 'primary',
+        type: 'modal'
+    },
+    {
+        icon: GraduationHatIcon.src,
+        modalIcon: Logo.src,
+        title: 'Actas de grado',
+        description: 'Solicita duplicados de actas de grado y certificados de graduación',
+        modalDescription: 'Solicita duplicados de tu acta de grado.',
+        color: 'secondary',
+        type: 'modal'
+    },
+    {
+        icon: CalendarIcon.src,
+        modalIcon: WhiteCalendarIcon.src,
+        title: 'Citas con la rectora',
+        description: 'Agenda una cita personal con la rectora de la institución',
+        modalDescription: 'Solicita una cita personal con la rectora.',
+        color: 'gradient',
+        type: 'modal'
+    },
+    {
+        icon: NotificationIcon.src,
+        title: 'Novedades',
+        description: 'Mantente informado sobre las últimas novedades institucionales',
+        color: 'secondary',
+        type: 'link'
+    },
+    {
+        icon: NewIcon.src,
+        title: 'Noticias',
+        description: 'Lee las noticias más recientes de nuestra comunidad educativa',
+        color: 'primary',
+        type: 'link'
+    },
+    {
+        icon: PhoneIcon.src,
+        title: 'Contacto',
+        description: 'Lee las noticias más recientes de nuestra comunidad educativa',
+        color: 'secondary',
+        type: 'link'
+    }
+]
+---
+
+<Layout title="Servicios">
+    <main class="!gap-4">
+        <h1 class="main-title text-[30px] font-bold animate__animated animate__fadeIn">Nuestros servicios</h1>
+        <Loader client:load>
+            <article class="flex flex-row flex-wrap justify-center gap-6 w-[90%] py-4 animate__animated animate__fadeInLeft">
+                { servicesRequests.map(service => <Card data={service} width='w-[25%]' client:load />) }            
+            </article>                          
+        </Loader>
+    </main>
+</Layout>

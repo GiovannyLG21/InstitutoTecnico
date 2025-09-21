@@ -1,0 +1,42 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import { PhoneIcon, OrangePhoneIcon, EmailIcon, LocationIcon } from '@/assets/icons'
+import { MainHeader, Card } from '@/components/components'
+import type { CardDataType } from '@/components/types'
+
+const headerData = {
+    icon: PhoneIcon.src,
+    title: 'Contacto',
+    description: 'Nuestra información de contacto'
+}
+
+const contactCards: CardDataType[] = [
+    {
+        icon: OrangePhoneIcon.src,
+        title: 'Teléfono',
+        description: '(123) 456-7890',
+        color: 'primary',
+    },
+    {
+        icon: EmailIcon.src,
+        title: 'Email',
+        description: 'info@institutotecnico.edu.co',
+        color: 'secondary',
+    },
+    {
+        icon: LocationIcon.src,
+        title: 'Dirección',
+        description: 'Calle Principal #123, Ciudad',
+        color: 'primary',
+    }    
+]
+---
+
+<Layout title="Contacto">
+    <main>
+        <MainHeader data={headerData} iconAnimation="animate__swing"/>
+        <article class="flex flex-row gap-14 items-center justify-center animate__animated animate__fadeIn">
+            { contactCards.map(contact => <Card data={contact} width="w-[15rem]"/>) }
+        </article>
+    </main>
+</Layout>
