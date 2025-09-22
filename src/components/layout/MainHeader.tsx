@@ -15,9 +15,9 @@ function MainHeader({ data, iconAnimation }: Props) {
 
     return (
         <header className="flex flex-col items-center gap-2 animate__animated animate__fadeInDown">
-            <img src={icon} alt={`${title} Icon`} className={`w-16 animate__animated ${animateIcon}`} />
-            <h1 className="text-2xl font-bold">{title}</h1>
-            <p className="text-lg">{description}</p>
+            <img src={icon} alt={`${title} Icon`} className={`w-16 2xl:w-18 animate__animated ${animateIcon}`} />
+            <h1 className="text-xl xs:text-2xl 2xl:text-4xl font-bold text-center">{title}</h1>
+            <p className="text-base xs:text-lg 2xl:text-xl text-center">{description}</p>
         </header>
     )
 }

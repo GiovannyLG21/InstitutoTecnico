@@ -1,15 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import 'tailwindcss';
-@plugin '@tailwindcss/typography';
+@import './animations.css';
+
 
 @theme {
+
+    /** Colors Palette **/
     --color-primary: #f9791e;
     --color-secondary: #91c316;
     --color-surface: var(--color-gray-800);
     --color-neutral: var(--color-gray-400);
     --color-muted: var(--color-gray-300);
 
-    /** Text **/
+    /* Hover */
+    --color-hover: #ea590c;
+    --color-hover-secondary: #75a20e;
+
+    /* Text */
     --color-text: var(--color-surface);
 
 
@@ -18,17 +25,28 @@
     --shadow-md: 5px 5px 0px 0px rgba(162, 159, 159, .25);
     --shadow-difused: 5px 5px 6px 0px rgba(162, 159, 159, .25);
 
-    /* Shadow orange */
+    /* Hover shadow orange */
     --shadow-hover: 5px 5px 0px 0px rgba(249, 121, 30, 1);
 
-    /* Shadow green */
+    /* Hover shadow green */
     --shadow-hover-secondary: 5px 5px 0px 0px rgba(145, 195, 22, 1);
 
 
     /** Generals **/
+    --gradient: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
     --transition-duration: 200ms;
+    --breakpoint-xs: 480px;
+    /* Breakpoints */
+    /* 
+        normal (320px)
+        xs (480px)
+        sm	(640px)
+        md	(768px)
+        lg	(1024px)
+        xl	(1280px)
+        2xl (1536px) 
+    */
 }
-
 
 
 /** ESSENTIALS **/
@@ -47,17 +65,20 @@ body {
 }
 
 main {
-    @apply w-full flex flex-col items-center gap-12 py-10 px-12;
+    @apply w-full flex flex-col items-center gap-12 py-10 px-6 xs:px-12;
 }
-
 
 
 /** GENERALS **/
 
-/* Scrollbar */
+/* Scrollbar style */
 body,
 .overflow-y-auto {
     @apply [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-track]:bg-gray-200 [&::-webkit-scrollbar-thumb]:bg-secondary/80 [&::-webkit-scrollbar-thumb]:cursor-pointer;
+}
+
+.overflow-y-auto {
+    @apply [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-lg;
 }
 
 body::-webkit-scrollbar-thumb:hover,
@@ -65,16 +86,17 @@ body::-webkit-scrollbar-thumb:hover,
     @apply bg-secondary;
 }
 
-.overflow-y-auto {
-    @apply [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-track]:rounded-lg;
+/* Block scroll (for modals and burger menu) */
+body.no-scroll {
+    @apply overflow-hidden;
 }
 
-/* Background */
+/* Background gradient */
 .bg-gradient {
-    background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    background: var(--gradient)
 }
 
-/* loader */
+/* Loader style */
 .loading {
     width: 50px;
     padding: 8px;
@@ -97,10 +119,7 @@ body::-webkit-scrollbar-thumb:hover,
     }
 }
 
-
-
-/** Animations **/
-
+/* General animation */
 .animate {
     @apply transition-all duration-[var(--transition-duration)];
 }
@@ -109,72 +128,15 @@ body::-webkit-scrollbar-thumb:hover,
     @apply transition-all duration-[var(--transition-duration)] hover:-translate-x-1 hover:-translate-y-1;
 }
 
-/* Navbar logo hover animation */
-.logo {
-    --c: white;
-    /* the border color */
-    --b: 2px;
-    /* the border thickness*/
-    --g: 5px;
-    /* the gap on hover */
-
-    padding: calc(var(--g) + var(--b));
-    --_g: #0000 25%, var(--c) 0;
-    background:
-        conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) var(--_i, 200%) 0 /200% var(--_i, var(--b)) no-repeat,
-        conic-gradient(at bottom var(--b) left var(--b), var(--_g)) 0 var(--_i, 200%)/var(--_i, var(--b)) 200% no-repeat;
-    transition: .2s, background-position .2s .2s;
-    cursor: pointer;
-}
-
-.logo:hover {
-    --_i: 100%;
-    transition: .2s, background-size .2s .2s;
-}
-
-/* Navbar logo icon animation */
-.animate__animated.animate__bounce {
-    animation-delay: 100ms;
-    animation-iteration-count: 2;
-}
-
-/* Fade animation */
-.animate__animated.animate__fadeIn {
-    animation-delay: 150ms;
-    animation-duration: 1.5s;
-}
-
-/* Index animation */
-.index.animate__animated.animate__fadeIn {
-    animation-delay: 150ms;
-    animation-duration: 2s;
-}
-
-/* Services animation */
-.animate__animated.animate__fadeInLeft {
-    animation-duration: 1.25s;
-}
-
-/* Notices animation */
-.animate__animated.animate__heartBeat {
-    animation-delay: 250ms;
-    animation-duration: 2s;
-}
-
-/* Notification animation */
-.animate__animated.animate__headShake {
-    animation-delay: 250ms;
-    animation-duration: 800ms;
-    animation-iteration-count: 2;
-}
-
 
 /** Links **/
 
+/* Navbar items */
 .link--nav {
     @apply text-lg text-white font-semibold relative;
 }
 
+/* Items hover animation */
 .link--nav:after {
     display: block;
     position: absolute;
@@ -193,40 +155,63 @@ body::-webkit-scrollbar-thumb:hover,
     left: 0;
 }
 
+/* Burger menu items size */
+.link--menu {
+    @apply text-3xl;
+}
+
+
+/** Buttons **/
+
 .btn {
-    @apply w-full bg-primary text-white text-lg font-semibold rounded-lg py-1 cursor-pointer;
+    @apply w-full bg-primary text-white hover:bg-hover text-lg font-semibold rounded-lg py-2 px-4 cursor-pointer transition-all duration-[var(--transition-duration)];
 }
 
 .btn--secondary {
-    @apply bg-secondary;
+    @apply bg-secondary hover:bg-hover-secondary;
+}
+
+.btn--gradient {
+    background: var(--gradient);
+    @apply hover:brightness-115;
 }
 
 .btn.disabled {
-    @apply bg-muted;
+    @apply bg-muted/75 cursor-not-allowed;
 }
 
-/** Inputs **/
+.btn-icon {
+    @apply rounded-xl hover:bg-gray-100/25 text-white cursor-pointer py-1 px-1 transition-all duration-[var(--transition-duration)]
+}
+
+
+/** Forms **/
+
 form {
     @apply h-full;
 }
 
 input,
-select {
-    @apply px-2 border-1 border-muted rounded-md h-8 focus-visible:outline-0 text-text;
+select,
+textarea {
+    @apply px-2 border-1 border-muted rounded-md h-9 focus-visible:outline-0 text-text;
 }
 
 textarea {
-    @apply border-1 border-muted text-text rounded-md p-2;
+    @apply p-2;
 }
 
+/* Modal */
 dialog {
     @apply opacity-0 transition-all duration-550 ease-in-out;
 }
 
+/* Visible modal */
 dialog.active {
     @apply opacity-100;
 }
 
+/* Disable default border */
 *:focus-visible {
     @apply outline-0
 }

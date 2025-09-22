@@ -33,22 +33,22 @@ function UpdateCard({ update }: Props) {
             onMouseLeave={spanHoverAnimationOut}>
             <header className="flex flex-col gap-1">
                 <div className="flex flex-row items-center justify-between">
-                    <h1 className={`text-xl font-bold ${titleHoverColor}`}>{title}</h1>
+                    <h1 className={`text-lg sm:text-xl 2xl:text-2xl font-bold ${titleHoverColor}`}>{title}</h1>
                     {span && (
                         <span
                             ref={spanRef}
-                            className="text-xs px-3 py-1 rounded-2xl bg-primary text-white animate__animated">
+                            className="text-[10px] sm:text-xs 2xl:text-sm px-3 py-1 rounded-2xl bg-primary text-white animate__animated">
                             {span}
                         </span>
                     )}
                 </div>
-                <span className="flex flex-row items-center gap-1 text-xs text-neutral">
+                <span className="flex flex-row items-center gap-1 text-xs 2xl:text-base text-neutral">
                     <img src={ClockIcon.src} alt="Clock icon" className="w-5" />
                     {date}
                 </span>
             </header>
             <div>
-                <p className="text-sm">{Content}</p>
+                <p className="text-xs sm:text-sm 2xl:text-base">{Content}</p>
             </div>
         </section>
     )

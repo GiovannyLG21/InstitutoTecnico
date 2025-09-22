@@ -1,13 +1,13 @@
 import { defineCollection, z } from 'astro:content'
+import { isRelativePath, isValidDate } from '@/libs/functions'
 
-const evalDate = (date: string) => !isNaN(Date.parse(date))
 
 const updatesSchema = z.object({
     title: z.string(),
     span: z.string().optional(),
     date: z.string().refine(
-        (val) => evalDate(val),
-        { message: 'Date is invalid' }
+        (val) => isValidDate(val),
+        { message: 'Invalid date' }
     ),
     type: z.number().refine(
         (val) => val === 1 || val === 2,
@@ -17,16 +17,16 @@ const updatesSchema = z.object({
 
 const noticesSchema = z.object({
     img: z.string().refine(
-        (val) => /^\/[a-zA-Z0-9_\-./]+$/.test(val)
+        (val) => isRelativePath(val),
+        { message: 'Invalid path' }
     ),
     span: z.string(),
     title: z.string(),
     date: z.string().refine(
-        (val) => evalDate(val),
-        { message: 'Date is invalid' }
+        (val) => isValidDate(val),
+        { message: 'Invalid date' }
     )
 })
-
 
 
 const updates = defineCollection({

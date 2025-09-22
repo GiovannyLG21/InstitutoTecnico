@@ -2,6 +2,8 @@
 import '@/styles/global.css'
 import { ClientRouter } from 'astro:transitions'
 import { Navbar, ServicesModal } from '@/components/components'
+import { NavbarLoader } from '@/components/layout/Navbar'
+
 
 interface Props {
 	title?: string,
@@ -17,16 +19,18 @@ const { title, index } = Astro.props
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{ title ? `${title} - Instituto Tecnico App` : 'Instituto Tecnico App' }</title>
+		<title>{ title ? `${title} | Instituto Técnico App` : 'Instituto Técnico App' }</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 		<ClientRouter />
 	</head>
 
 	<body class={index ? 'bg-gradient' : ''}>		
 		<div id="root">	
-			<Navbar client:load />		
+			<Navbar client:only="react" >
+				<NavbarLoader slot="fallback"/>
+			</Navbar>					
 			<slot />
 		</div>		
-		<ServicesModal client:load/>			
+		<ServicesModal client:only="react"/>			
 	</body>
 </html>

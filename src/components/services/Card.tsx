@@ -1,56 +1,73 @@
-import { useServicesModal } from '@/global/ModalState'
+import { useServicesModal } from '@/store/store'
 
 interface Props {
     data: {
         icon: string,
-        modalIcon?: string,
         title: string,
         description: string,
-        modalDescription?: string,
         color: string,
-        type?: 'link' | 'modal'
+        type?: 'link' | 'modal',
+        modal?: {
+            modalIcon: string,
+            modalTitle: string
+            modalDescription: string,
+            modalColor: string,
+            modalForm: string
+        }
     },
     width?: string
 }
 export type CardDataType = Props['data']
 
 export function Card({ data, width }: Props) {
-    const { icon, modalIcon, title, description, modalDescription, color, type } = data
-    const { openModal, setIcon, setTitle, setDescription, setColor, setModalForm } = useServicesModal()
-    const shadowHoverColor = color === 'primary' ? 'hover:shadow-hover' : 'hover:shadow-hover-secondary'
+    const { icon, title, description, color, type } = data
 
     const Element = type === 'link' ? 'a' : 'div'
     const elementProps = Element === 'a'
         ? { href: title.toLowerCase() }
         : {}
 
-    const cardHandler = () => {
-        if (modalIcon) setIcon(modalIcon)
-        setTitle(title)
-        if (modalDescription) setDescription(modalDescription)
-        setColor(color)
-        setModalForm('ConstancyForm')
-        openModal()
+    const hoverCardColors: Record<string, string> = {
+        primary: 'hover:shadow-hover',
+        secondary: 'hover:shadow-hover-secondary'
     }
-    return type === 'modal' ? (
-        <section className={width ?? ''}>
-            <section className={`flex flex-col gap-2 items-center justify-center w-full h-full py-4 px-6
-            shadow-md border-1 border-muted rounded-xl cursor-pointer animate--card ${shadowHoverColor}`}
-                onClick={cardHandler}>
-                <img src={icon} alt="Icon" className="w-14" />
-                <h1 className="text-lg font-bold text-center">{title}</h1>
-                <p className="text-sm text-center">{description}</p>
+    const shadowHoverColor = hoverCardColors[color]
+
+    if (type === 'modal' && data.modal) {
+        const { modalIcon, modalTitle, modalDescription, modalColor, modalForm } = data.modal
+        const { openModal, setIcon, setTitle, setDescription, setColor, setModalForm } = useServicesModal()
+
+        const cardClickHandler = () => {
+            setIcon(modalIcon)
+            setTitle(modalTitle)
+            setDescription(modalDescription)
+            setColor(modalColor)
+            setModalForm(modalForm)
+            openModal()
+        }
+
+        return (
+            <section className={width ?? ''}>
+                <section className={`flex flex-col gap-2 items-center justify-center w-full h-full py-4 px-6
+                shadow-md border-1 border-muted rounded-xl cursor-pointer animate--card ${shadowHoverColor}`}
+                    onClick={cardClickHandler}
+                >
+                    <img src={icon} alt="Icon" className="w-14" />
+                    <h1 className="text-lg font-bold text-center">{title}</h1>
+                    <p className="text-sm text-center">{description}</p>
+                </section>
             </section>
-        </section>
-    )
-        : (
-            <Element {...elementProps} className={`flex flex-col gap-2 items-center justify-center ${width ?? ''} py-4 px-6 
-            shadow-md border-1 border-muted rounded-xl cursor-pointer animate--card ${shadowHoverColor}`}>
-                <img src={icon} alt="Icon" className="w-14" />
-                <h1 className="text-lg font-bold text-center">{title}</h1>
-                <p className="text-sm text-center">{description}</p>
-            </Element>
         )
+    }
+
+    return (
+        <Element {...elementProps} className={`flex flex-col gap-2 items-center justify-center ${width ?? ''} py-4 px-6 
+            shadow-md border-1 border-muted rounded-xl cursor-pointer animate--card ${shadowHoverColor}`}>
+            <img src={icon} alt="Icon" className="w-14 2xl:w-18" />
+            <h1 className="text-lg 2xl:text-2xl font-bold text-center">{title}</h1>
+            <p className="text-sm 2xl:text-lg text-center">{description}</p>
+        </Element>
+    )
 }
 
 export default Card

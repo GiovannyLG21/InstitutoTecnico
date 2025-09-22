@@ -1,37 +1,61 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { DocumentIcon, WhiteDocumentIcon, GraduationHatIcon, CalendarIcon, WhiteCalendarIcon, NotificationIcon, NewIcon, PhoneIcon } from '@/assets/icons'
 import Logo from '@/assets/logo.svg'
+import { 
+    DocumentIcon, 
+    WhiteDocumentIcon, 
+    GraduationHatIcon, 
+    CalendarIcon, 
+    WhiteCalendarIcon, 
+    NotificationIcon, 
+    NoticeIcon, 
+    PhoneIcon 
+} from '@/assets/icons'
 import { Card, Loader } from '@/components/components'
 import type { CardDataType } from '@/components/types'
 
 const servicesRequests: CardDataType[] = [
     {
-        icon: DocumentIcon.src,
-        modalIcon: WhiteDocumentIcon.src,
+        icon: DocumentIcon.src,        
         title: 'Solicitud de constancias',
-        description: 'Solicita constancias de estudio, notas y otros documentos académicos',
-        modalDescription: 'Completa el formulario para solicitar tu constancia.',
+        description: 'Solicita constancias de estudio, notas y otros documentos académicos',        
         color: 'primary',
-        type: 'modal'
+        type: 'modal',
+        modal: {
+            modalIcon: WhiteDocumentIcon.src,
+            modalTitle: 'Solicitud de constancias',
+            modalDescription: 'Completa el formulario para solicitar tu constancia.',
+            modalColor: 'primary',
+            modalForm: 'ConstancyForm'
+        }
     },
     {
-        icon: GraduationHatIcon.src,
-        modalIcon: Logo.src,
+        icon: GraduationHatIcon.src,        
         title: 'Actas de grado',
-        description: 'Solicita duplicados de actas de grado y certificados de graduación',
-        modalDescription: 'Solicita duplicados de tu acta de grado.',
+        description: 'Solicita duplicados de actas de grado y certificados de graduación',        
         color: 'secondary',
-        type: 'modal'
+        type: 'modal',
+        modal: {
+            modalIcon: Logo.src,
+            modalTitle: 'Actas de grado',
+            modalDescription: 'Solicita duplicados de tu acta de grado.',
+            modalColor: 'secondary',
+            modalForm: 'CertificateForm'
+        }
     },
     {
-        icon: CalendarIcon.src,
-        modalIcon: WhiteCalendarIcon.src,
+        icon: CalendarIcon.src,        
         title: 'Citas con la rectora',
-        description: 'Agenda una cita personal con la rectora de la institución',
-        modalDescription: 'Solicita una cita personal con la rectora.',
-        color: 'gradient',
-        type: 'modal'
+        description: 'Agenda una cita personal con la rectora de la institución',    
+        color: 'primary',
+        type: 'modal',
+        modal: {
+            modalIcon: WhiteCalendarIcon.src,
+            modalTitle: 'Citas con la rectora',
+            modalDescription: 'Solicita una cita personal con la rectora.',
+            modalColor: 'gradient',
+            modalForm: 'AppointmentForm'
+        }
     },
     {
         icon: NotificationIcon.src,
@@ -41,7 +65,7 @@ const servicesRequests: CardDataType[] = [
         type: 'link'
     },
     {
-        icon: NewIcon.src,
+        icon: NoticeIcon.src,
         title: 'Noticias',
         description: 'Lee las noticias más recientes de nuestra comunidad educativa',
         color: 'primary',
@@ -61,8 +85,9 @@ const servicesRequests: CardDataType[] = [
     <main class="!gap-4">
         <h1 class="main-title text-[30px] font-bold animate__animated animate__fadeIn">Nuestros servicios</h1>
         <Loader client:load>
-            <article class="flex flex-row flex-wrap justify-center gap-6 w-[90%] py-4 animate__animated animate__fadeInLeft">
-                { servicesRequests.map(service => <Card data={service} width='w-[25%]' client:load />) }            
+            <article class="flex flex-col md:flex-row md:flex-wrap items-center justify-center gap-6 w-[90%] py-4 
+                animate__animated animate__fadeInLeft">
+                { servicesRequests.map(service => <Card data={service} width='w-[75%] md:w-[45%] lg:w-[35%] xl:w-[28%] 2xl:w-[25%] md:h-[13rem]' client:load />) }            
             </article>                          
         </Loader>
     </main>

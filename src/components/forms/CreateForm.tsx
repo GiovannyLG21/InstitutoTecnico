@@ -10,11 +10,16 @@ export interface InputFieldType {
     label: string,
     placeholder?: string
     type: string,
-    maxLength?: string
     options?: {
         label: string,
         value: string
-    }[]
+    }[],
+    attributes?: {
+        maxLength?: string,
+        min?: string,
+        max?: string,
+        step?: string
+    }
 }
 
 
@@ -34,12 +39,12 @@ const BaseInput = ({ children, id, label, name }: BaseInputType) => {
 }
 
 //* Input Component
-const InputField = ({ id, name, label, placeholder, type, options, maxLength }: InputFieldType) => {
+const InputField = ({ id, name, label, placeholder, type, options, attributes }: InputFieldType) => {
     if (type === 'select' && options) {
         return (
             <BaseInput id={id} name={name} label={label}>
-                <Field id={id} name={name} as="select" className="w-full">
-                    <option value="">{`Seleccionar ${label.toLowerCase()}`}</option>
+                <Field id={id} name={name} as="select" className="w-full" {...attributes}>
+                    <option value="">{placeholder}</option>
                     {options.map(({ label, value }) => (
                         <option key={`${id}-${value}`} value={value}>{label}</option>
                     ))}
@@ -47,16 +52,16 @@ const InputField = ({ id, name, label, placeholder, type, options, maxLength }: 
             </BaseInput>
         )
     }
-    if (type === 'textarea'){
-        return (
-            <BaseInput id={id} name={name} label={label}>
-                <Field id={id} name={name} as="textarea" placeholder={placeholder} className="w-full" rows="2"/>
-            </BaseInput>
-        )
-    }    
+
+    const props = {
+        input: { as: 'input', type },
+        textarea: { as: 'textarea', rows: '2' }
+    }
+    const fieldProps = type === 'textarea' ? props.textarea : props.input
+
     return (
         <BaseInput id={id} name={name} label={label}>
-            <Field id={id} name={name} placeholder={`Ingresar ${label.toLowerCase()}`} type={type} className="w-full" maxLength={maxLength ?? ''}/>
+            <Field id={id} name={name} placeholder={placeholder} {...fieldProps}  {...attributes} className="w-full" />
         </BaseInput>
     )
 }
@@ -67,7 +72,7 @@ interface InputRowType {
 }
 function InputRow({ children }: InputRowType) {
     return (
-        <div className="row flex flex-row items-center justify-between gap-8">
+        <div className="row flex flex-col sm:flex-row items-center justify-between gap-6 sm:gap-8">
             {children}
         </div>
     )
@@ -83,7 +88,7 @@ interface Props {
     buttonText: string,
     buttonClassName?: string
 }
-function CreateForm({ formFields, formStructure, formValidationSchema, onSubmit, buttonText, buttonClassName }: Props) {
+export function CreateForm({ formFields, formStructure, formValidationSchema, onSubmit, buttonText, buttonClassName }: Props) {
     return (
         <Formik
             initialValues={formFields}
@@ -91,16 +96,16 @@ function CreateForm({ formFields, formStructure, formValidationSchema, onSubmit,
             validate={withZodSchema(formValidationSchema)}>
             {({ dirty, isValid }) => (
                 <Form>
-                    <div className="flex flex-col gap-7 h-full">
+                    <div className="flex flex-col gap-7 justify-between h-full">
                         <div className="flex flex-col gap-6 w-full overflow-y-auto pr-4 pb-[2px]">
-                            {formStructure.map((field, index) => {                                
+                            {formStructure.map((field, index) => {
                                 const isRow = Array.isArray(field)
-                                if (isRow) {                                    
+                                if (isRow) {
                                     const Inputs = Object.values(field)
-                                    
+
                                     return (
                                         <InputRow key={index}>
-                                            {Inputs.map(({ id, name, label, placeholder, type, options, maxLength }) =>                                            
+                                            {Inputs.map(({ id, name, label, placeholder, type, options, attributes }) =>
                                                 <InputField
                                                     key={id}
                                                     id={id}
@@ -109,20 +114,21 @@ function CreateForm({ formFields, formStructure, formValidationSchema, onSubmit,
                                                     placeholder={placeholder}
                                                     type={type}
                                                     options={options}
-                                                    maxLength={maxLength}
+                                                    attributes={attributes}
                                                 />
                                             )}
                                         </InputRow>
                                     )
                                 }
 
-                                const { id, label, name, placeholder, type, options, maxLength } = field
-                                return <InputField key={id} id={id} name={name} label={label} placeholder={placeholder} type={type} options={options} maxLength={maxLength}/>
+                                const { id, label, name, placeholder, type, options, attributes } = field
+                                return <InputField key={id} id={id} name={name} label={label} placeholder={placeholder} type={type} options={options} attributes={attributes} />
                             })}
                         </div>
                         <button
                             type="submit"
-                            className={`btn ${buttonClassName} ${!dirty || !isValid ? 'disabled' : ''}`}
+                            className={`btn ${!dirty || !isValid ? 'disabled' : buttonClassName}`}
+                            title={!dirty || !isValid ? 'Por favor llena el formulario correctamente' : 'Enviar'}
                             disabled={!dirty || !isValid}>
                             {buttonText}
                         </button>
@@ -132,4 +138,3 @@ function CreateForm({ formFields, formStructure, formValidationSchema, onSubmit,
         </Formik>
     )
 }
-export default CreateForm

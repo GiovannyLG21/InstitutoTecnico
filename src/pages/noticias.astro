@@ -1,11 +1,11 @@
 ---
 import Layout from '@/layouts/Layout.astro'
-import { getNotices } from '@/libs/functions'
-import { NewIcon } from '@/assets/icons'
+import { getNotices } from '@/libs/collections'
+import { NoticeIcon } from '@/assets/icons'
 import { MainHeader, NoticeCard } from '@/components/components'
 
 const headerData = {
-    icon: NewIcon.src,    
+    icon: NoticeIcon.src,    
     title: 'Noticias',
     description: 'Las últimas noticias de nuestra comunidad educativa'
 }
@@ -16,8 +16,9 @@ const notices = await getNotices()
 <Layout title="Noticias">
     <main>
         <MainHeader data={headerData} iconAnimation="animate__heartBeat"/>
-        <article class="flex flex-row flex-wrap gap-7 items-center justify-center w-[80%] animate__animated animate__fadeIn">
-            { notices.map(notice => <NoticeCard notice={notice} />) }
+        <article class="flex flex-col lg:flex-row lg:flex-wrap gap-10 lg:gap-7 items-center justify-center 
+            w-full xl:w-[80%] animate__animated animate__fadeIn">
+            { notices.map(notice => <NoticeCard notice={notice} width="w-[85%] sm:w-[70%] md:w-[60%] lg:w-[30%]"/>) }
         </article>
     </main>
 </Layout>

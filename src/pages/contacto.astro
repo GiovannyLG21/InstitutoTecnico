@@ -35,8 +35,8 @@ const contactCards: CardDataType[] = [
 <Layout title="Contacto">
     <main>
         <MainHeader data={headerData} iconAnimation="animate__swing"/>
-        <article class="flex flex-row gap-14 items-center justify-center animate__animated animate__fadeIn">
-            { contactCards.map(contact => <Card data={contact} width="w-[15rem]"/>) }
+        <article class="flex flex-col lg:flex-row gap-14 items-center justify-center animate__animated animate__fadeIn">
+            { contactCards.map(contact => <Card data={contact} width="w-[18rem] xs:w-[20rem] lg:w-[15rem] 2xl:w-[18rem]"/>) }
         </article>
     </main>
 </Layout>

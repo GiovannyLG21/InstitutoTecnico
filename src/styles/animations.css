@@ -1,0 +1,64 @@
+/** Animations **/
+
+/* Navbar logo - icon animation */
+.animate__animated.animate__bounce {
+    animation-delay: 100ms;
+    animation-iteration-count: 2;
+}
+
+/* Navbar logo - hover animation */
+.logo {
+    --c: white;
+    /* the border color */
+    --b: 2px;
+    /* the border thickness*/
+    --g: 5px;
+    /* the gap on hover */
+
+    padding: calc(var(--g) + var(--b));
+    --_g: #0000 25%, var(--c) 0;
+    background:
+        conic-gradient(from 180deg at top var(--b) right var(--b), var(--_g)) var(--_i, 200%) 0 /200% var(--_i, var(--b)) no-repeat,
+        conic-gradient(at bottom var(--b) left var(--b), var(--_g)) 0 var(--_i, 200%)/var(--_i, var(--b)) 200% no-repeat;
+    transition: .2s, background-position .2s .2s;
+    cursor: pointer;
+}
+
+.logo:hover {
+    --_i: 100%;
+    transition: .2s, background-size .2s .2s;
+}
+
+/* Fade animation */
+.animate__animated.animate__fadeIn {
+    animation-delay: 150ms;
+    animation-duration: 1.5s;
+}
+
+
+/** Page animations **/
+
+/* Index animation */
+.index.animate__animated.animate__fadeIn {
+    animation-delay: 150ms;
+    animation-duration: 2s;
+}
+
+/* Services animation */
+.animate__animated.animate__fadeInLeft {
+    animation-duration: 1.25s;
+}
+
+/* Notification animation */
+.animate__animated.animate__headShake {
+    animation-delay: 250ms;
+    animation-duration: 800ms;
+    animation-iteration-count: 2;
+}
+
+/* Notices animation */
+.animate__animated.animate__heartBeat {
+    animation-delay: 250ms;
+    animation-duration: 2s;
+}
+

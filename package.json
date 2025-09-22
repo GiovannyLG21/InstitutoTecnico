@@ -18,10 +18,8 @@
     "formik-validator-zod": "^2.2.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "sweetalert2": "^11.23.0",
     "tailwindcss": "^4.1.13",
     "zustand": "^5.0.8"
-  },
-  "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16"
   }
 }
