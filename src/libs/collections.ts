@@ -11,17 +11,17 @@ export type NoticeType = Awaited<ReturnType<typeof getCollection<'notices'>>>[nu
  * @returns 
  */
 const formatCollection = (collection: CollectionType[]) => {
-    return collection.map(entry => (
-        {
+    return collection.map(entry => {
+        return {
             ...entry,
             data: {
                 ...entry.data,
                 date: formatDate(entry.data.date)
             }
         }
-    ))
+    })
 }
 
-export const getUpdates = async () => await getCollection('updates').then((collection) => formatCollection(collection))
-export const getNotices = async () => await getCollection('notices').then((collection) => formatCollection(collection))
+export const getUpdates = async () => await getCollection('updates').then((collection) => formatCollection(collection)) as UpdateType[]
+export const getNotices = async () => await getCollection('notices').then((collection) => formatCollection(collection)) as NoticeType[] 
 
