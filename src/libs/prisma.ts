@@ -1,5 +1,8 @@
-import { PrismaClient } from '@prisma-app/client';
+import { PrismaClient } from '@/generated/prisma/client.ts'
+import { withAccelerate } from '@prisma/extension-accelerate'
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+  datasourceUrl: import.meta.env.DATABASE_URL,
+}).$extends(withAccelerate());
 
 export default prisma
