@@ -9,15 +9,15 @@ function AppointmentForm() {
     const { setSubmittedForm, setFormData } = useServicesModal()
 
     const formFields = {
-        names: 'Giovanny Ladino',
-        document: '1089478347',
-        documentType: 'CC',
-        phone: '3175298159',
-        email: 'ladigiococ@gmail.com',
-        subject: 'constancias',
-        date: '2025-09-26',
-        hour: '09:00',
-        requestReason: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        names: '',
+        document: '',
+        documentType: '',
+        phone: '',
+        email: '',
+        subject: '',
+        date: '',
+        hour: '',
+        requestReason: ''
     }
 
     const formStructure: FormStructureType = [

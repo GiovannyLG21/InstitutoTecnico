@@ -9,14 +9,14 @@ function CertificateForm() {
     const { setSubmittedForm, setFormData } = useServicesModal()
 
     const formFields = {
-        names: 'Giovanny Ladino',
-        document: '1089478347',
-        documentType: 'CC',
-        phone: '3175298159',
-        email: 'ladigiococ@gmail.com',
-        graduationProgram: 'sistemas',
-        graduationYear: '2024',
-        requestReason: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        names: '',
+        document: '',
+        documentType: '',
+        phone: '',
+        email: '',
+        graduationProgram: '',
+        graduationYear: '',
+        requestReason: ''
     }
 
     const formStructure: FormStructureType = [

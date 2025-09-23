@@ -8,13 +8,13 @@ function ConstancyForm() {
     const { setSubmittedForm, setFormData } = useServicesModal()
 
     const formFields = {
-        names: 'Giovanny Ladino',
-        document: '1089478347',
-        documentType: 'CC',
-        phone: '3175298159',
-        email: 'ladigiococ@gmail.com',
-        constancyType: 'matricula',
-        requestReason: 'aaaaaaaaaaaaaaaaaaaaaaaaa'
+        names: '',
+        document: '',
+        documentType: '',
+        phone: '',
+        email: '',
+        constancyType: '',
+        requestReason: ''
     }
 
     const formStructure: FormStructureType = [
