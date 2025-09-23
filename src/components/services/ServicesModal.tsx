@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { useServicesModal } from '@/store/store'
 import { ConstancyForm, CertificateForm, AppointmentForm } from '@/components/forms/forms'
 import { CloseIcon } from '@/assets/icons'
-import Swal from 'sweetalert2'
 import type { JSX } from 'astro/jsx-runtime'
 import { WEB_URL } from 'astro:env/client'
 import { Loading } from '@/components/components'
+import Swal from 'sweetalert2'
 
 
 const Forms: Record<string, () => JSX.Element> = {
@@ -107,6 +107,7 @@ const ServicesModal = () => {
         </dialog>
     )
 }
+
 
 const successAlert = () => Swal.fire({
     icon: 'success',

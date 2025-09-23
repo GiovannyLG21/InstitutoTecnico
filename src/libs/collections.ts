@@ -2,8 +2,8 @@ import { getCollection } from 'astro:content'
 import { formatDate } from './functions'
 
 export type CollectionType = Awaited<ReturnType<typeof getCollection>>[number]
-export type UpdateType = Awaited<ReturnType<typeof getUpdates>>[number]
-export type NoticeType = Awaited<ReturnType<typeof getNotices>>[number]
+export type UpdateType = Awaited<ReturnType<typeof getCollection<'updates'>>>[number]
+export type NoticeType = Awaited<ReturnType<typeof getCollection<'notices'>>>[number]
 
 /**
  * Format date to entrys of a collection
