@@ -13,6 +13,7 @@ export const POST: APIRoute = async ({ request }) => {
             JSON.stringify({ response: 'Request created' }), { status: 200 }
         )
     } catch (error) {
+        console.error(error)
         return new Response(
             JSON.stringify({ response: 'Error in the server ' + error }), { status: 500 }
         )
