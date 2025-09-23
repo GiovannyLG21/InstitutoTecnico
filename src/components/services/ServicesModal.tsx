@@ -5,6 +5,7 @@ import { CloseIcon } from '@/assets/icons'
 import type { JSX } from 'astro/jsx-runtime'
 import { WEB_URL } from 'astro:env/client'
 import { Loading } from '@/components/components'
+import 'sweetalert2/dist/sweetalert2.css'
 import Swal from 'sweetalert2'
 
 
@@ -74,6 +75,7 @@ const ServicesModal = () => {
 
     return (
         <dialog
+            id="services-modal"
             className="w-full h-full max-w-none max-h-none bg-transparent"
             ref={modalRef}
             onClick={modalClickHandler}
