@@ -1,14 +1,14 @@
-import prisma from '@/libs/prisma';
-import type { APIRoute } from 'astro';
+import connectDB from '@/api/config/db'
+import { Constancys } from '@/api/models/models'
+import type { APIRoute } from 'astro'
 
 export const prerender = false
 
 export const POST: APIRoute = async ({ request }) => {
-    const body = await request.json()
+    const data = await request.json()
     try {
-        await prisma.constancys.create({
-            data: body
-        })        
+        await connectDB()
+        await Constancys.create(data)
         return new Response(
             JSON.stringify({ response: 'Request created' }), { status: 200 }
         )

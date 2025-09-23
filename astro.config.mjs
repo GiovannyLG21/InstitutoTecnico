@@ -6,7 +6,7 @@ import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
-export default defineConfig({  
+export default defineConfig({
   vite: {
     plugins: [tailwindcss()]
   },
@@ -15,7 +15,8 @@ export default defineConfig({
 
   env: {
     schema: {
-      WEB_URL: envField.string({ access: 'public', context: 'client' })
+      WEB_URL: envField.string({ access: 'public', context: 'client' }),
+      DATABASE_URL: envField.string({ access: 'secret', context: 'server' })
     }
   },
 
