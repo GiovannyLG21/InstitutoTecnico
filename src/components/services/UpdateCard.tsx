@@ -1,4 +1,4 @@
-import type { UpdateType } from '@/libs/functions'
+import type { UpdateType } from '@/libs/collections'
 import { ClockIcon } from '@/assets/icons'
 import { useRef } from 'react'
 

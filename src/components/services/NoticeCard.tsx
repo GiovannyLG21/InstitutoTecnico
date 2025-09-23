@@ -1,4 +1,4 @@
-import type { NoticeType } from '@/libs/functions'
+import type { NoticeType } from '@/libs/collections'
 
 interface Props {
     notice: NoticeType,

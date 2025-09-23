@@ -203,12 +203,12 @@ textarea {
 }
 
 /* Modal */
-dialog {    
+#services-modal {    
     @apply opacity-0 transition-all duration-550 ease-in-out;
 }
 
 /* Visible modal */
-dialog.active {
+#services-modal.active {
     @apply opacity-100;
 }
 
