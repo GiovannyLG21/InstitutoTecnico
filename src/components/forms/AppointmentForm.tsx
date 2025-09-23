@@ -6,7 +6,7 @@ import { defaultFormFields, defaultFormValidators } from './fields'
 
 
 function AppointmentForm() {
-    const { setSubmittedForm } = useServicesModal()
+    const { setSubmittedForm, setFormData } = useServicesModal()
 
     const formFields = {
         names: 'Giovanny Ladino',
@@ -15,9 +15,9 @@ function AppointmentForm() {
         phone: '3175298159',
         email: 'ladigiococ@gmail.com',
         subject: 'constancias',
-        date: '2025-09-25',
+        date: '2025-09-26',
         hour: '09:00',
-        requestReason: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
+        requestReason: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
     }
 
     const formStructure: FormStructureType = [
@@ -98,7 +98,10 @@ function AppointmentForm() {
         requestReason: defaultFormValidators.textarea
     } as Record<keyof typeof formFields, z.ZodTypeAny>)
 
-    const onSubmit = () => setSubmittedForm()
+    const onSubmit = (values: typeof formFields) => {
+        setFormData(values)
+        setSubmittedForm()
+    }
 
     return (
         <CreateForm

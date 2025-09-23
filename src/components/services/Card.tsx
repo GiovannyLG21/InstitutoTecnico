@@ -12,7 +12,8 @@ interface Props {
             modalTitle: string
             modalDescription: string,
             modalColor: string,
-            modalForm: string
+            modalForm: string,
+            formApi: 'constancys' | 'certificates' | 'appointments'
         }
     },
     width?: string
@@ -34,8 +35,8 @@ export function Card({ data, width }: Props) {
     const shadowHoverColor = hoverCardColors[color]
 
     if (type === 'modal' && data.modal) {
-        const { modalIcon, modalTitle, modalDescription, modalColor, modalForm } = data.modal
-        const { openModal, setIcon, setTitle, setDescription, setColor, setModalForm } = useServicesModal()
+        const { modalIcon, modalTitle, modalDescription, modalColor, modalForm, formApi } = data.modal
+        const { openModal, setIcon, setTitle, setDescription, setColor, setModalForm, setFormApi } = useServicesModal()
 
         const cardClickHandler = () => {
             setIcon(modalIcon)
@@ -43,6 +44,7 @@ export function Card({ data, width }: Props) {
             setDescription(modalDescription)
             setColor(modalColor)
             setModalForm(modalForm)
+            setFormApi(formApi)
             openModal()
         }
 

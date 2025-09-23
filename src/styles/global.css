@@ -34,6 +34,7 @@
 
     /** Generals **/
     --gradient: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    --modal-color: var(--color-primary);
     --transition-duration: 200ms;
     --breakpoint-xs: 480px;
     /* Breakpoints */
@@ -202,13 +203,17 @@ textarea {
 }
 
 /* Modal */
-dialog {
+dialog {    
     @apply opacity-0 transition-all duration-550 ease-in-out;
 }
 
 /* Visible modal */
 dialog.active {
     @apply opacity-100;
+}
+
+.dialog-alert.btn {
+    background: var(--modal-color)
 }
 
 /* Disable default border */

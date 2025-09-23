@@ -6,7 +6,7 @@ import { defaultFormFields, defaultFormValidators } from './fields'
 
 
 function CertificateForm() {
-    const { setSubmittedForm } = useServicesModal()
+    const { setSubmittedForm, setFormData } = useServicesModal()
 
     const formFields = {
         names: 'Giovanny Ladino',
@@ -76,7 +76,10 @@ function CertificateForm() {
         requestReason: defaultFormValidators.textarea
     } satisfies Record<keyof typeof formFields, z.ZodTypeAny>)
 
-    const onSubmit = () => setSubmittedForm()
+    const onSubmit = (values: typeof formFields) => {
+        setFormData(values)
+        setSubmittedForm()
+    }
 
     return (
         <CreateForm

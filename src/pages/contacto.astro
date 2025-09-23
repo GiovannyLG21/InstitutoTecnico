@@ -20,13 +20,13 @@ const contactCards: CardDataType[] = [
     {
         icon: EmailIcon.src,
         title: 'Email',
-        description: 'info@institutotecnico.edu.co',
+        description: 'rectoria@instecnico.edu.co',
         color: 'secondary',
     },
     {
         icon: LocationIcon.src,
         title: 'Dirección',
-        description: 'Calle Principal #123, Ciudad',
+        description: 'Calle 3a #768 Santander de Quilichao',
         color: 'primary',
     }    
 ]
@@ -36,7 +36,7 @@ const contactCards: CardDataType[] = [
     <main>
         <MainHeader data={headerData} iconAnimation="animate__swing"/>
         <article class="flex flex-col lg:flex-row gap-14 items-center justify-center animate__animated animate__fadeIn">
-            { contactCards.map(contact => <Card data={contact} width="w-[18rem] xs:w-[20rem] lg:w-[15rem] 2xl:w-[18rem]"/>) }
+            { contactCards.map(contact => <Card data={contact} width="w-[18rem] h-[11rem] xs:w-[20rem] lg:w-[15rem] 2xl:w-[18rem]"/>) }
         </article>
     </main>
 </Layout>

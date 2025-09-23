@@ -2,21 +2,25 @@ import { create } from 'zustand'
 import Logo from '@/assets/logo.svg'
 
 interface ServicesModalType {
-    status: boolean,
-    icon: string,
-    title: string,
-    description: string,
-    color: string,
-    modalForm: string,
+    status: boolean
+    icon: string
+    title: string
+    description: string
+    color: string
+    modalForm: string
     submittedForm: boolean
-    openModal: () => void,
-    closeModal: () => void,
-    setIcon: (src: string) => void,
+    formData: {}
+    formApi: string
+    openModal: () => void
+    closeModal: () => void
+    setIcon: (src: string) => void
     setTitle: (title: string) => void
-    setDescription: (description: string) => void,
+    setDescription: (description: string) => void
     setColor: (color: string) => void
-    setModalForm: (form: string) => void,
-    setSubmittedForm: () => void,
+    setModalForm: (form: string) => void
+    setSubmittedForm: () => void
+    setFormData: (data: {}) => void
+    setFormApi: (api: string) => void
     reset: () => void
 }
 
@@ -27,7 +31,9 @@ const initialState = {
     description: 'Description',
     color: 'primary',
     modalForm: 'ConstancyForm',
-    submittedForm: false
+    submittedForm: false,
+    formData: {},
+    formApi: ''
 }
 
 const useServicesModal = create<ServicesModalType>()((set) => ({
@@ -40,6 +46,8 @@ const useServicesModal = create<ServicesModalType>()((set) => ({
     setColor: (color) => set(() => ({ color })),
     setModalForm: (form) => set(() => ({ modalForm: form })),
     setSubmittedForm: () => set(() => ({ submittedForm: true })),
+    setFormData: (data: {}) => set(() => ({ formData: data })),
+    setFormApi: (api: string) => set(() => ({ formApi: api })),
     reset: () => set({ ...initialState })
 }))
 

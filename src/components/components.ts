@@ -10,3 +10,4 @@ export { default as ServicesModal } from './services/ServicesModal'
 
 //* Common
 export { default as Loader } from './common/Loader'
+export { default as Loading } from './common/Loading'
