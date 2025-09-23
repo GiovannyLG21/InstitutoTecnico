@@ -30,26 +30,6 @@
 		{
 			"src": "^/api/constancys/?$",
 			"dest": "_render"
-		},
-		{
-			"src": "^/contacto/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/noticias/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/novedades/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/servicios/?$",
-			"dest": "_render"
-		},
-		{
-			"src": "^/$",
-			"dest": "_render"
 		}
 	]
 }
