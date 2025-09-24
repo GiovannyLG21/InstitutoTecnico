@@ -16,32 +16,25 @@ const Forms: Record<string, () => JSX.Element> = {
 }
 
 const ServicesModal = () => {
-    const modalRef = useRef<HTMLDialogElement>(null)
     const { status, icon, title, description, color, modalForm, submittedForm, formData, formApi, closeModal, reset } = useServicesModal()
-    const ModalFormComponent = Forms[modalForm]
+    const modalRef = useRef<HTMLDialogElement>(null)
     const [loading, setLoading] = useState(false)
+    const ModalFormComponent = Forms[modalForm]
 
-    //* Header & button color
-    const modalColors: Record<string, string> = {
-        primary: 'var(--color-primary)',
-        secondary: 'var(--color-secondary)',
-        gradient: 'var(--gradient)'
-    }
+    const modalColor = `bg-${color}`
 
     //* Status
     useEffect(() => {
         if (modalRef.current) {
             if (status) {
-                document.body.classList.add('no-scroll')
-                document.body.style.setProperty('--modal-color', modalColors[color])
-                modalRef.current.showModal()
-                return modalRef.current.classList.add('active')
+                modalRef.current.style.setProperty('--modal-color', `var(--color-${color})`)           
+                modalRef.current.showModal()     
+                return document.body.classList.add('modal-active')
             }
-            document.body.classList.remove('no-scroll')
-            modalRef.current.classList.remove('active')
+            document.body.classList.remove('modal-active')
             setTimeout(() => {
-                setLoading(false)
                 modalRef.current ? modalRef.current.close() : null
+                setLoading(false)
                 reset()
             }, 350)
         }
@@ -58,17 +51,16 @@ const ServicesModal = () => {
                 },
                 body: JSON.stringify(formData)
             })
-                .then((res) => res.json())
                 .then(() => {
                     closeModal()
-                    successAlert()
+                    successAlert(color)
                 })
         }
     }, [submittedForm])
 
     //* Handler
     const modalClickHandler = (e: React.MouseEvent<HTMLDialogElement, MouseEvent>) => {
-        const target = e.target as HTMLDivElement
+        const target = e.target as HTMLElement
         const targetId = target.id
         if (!loading && targetId && targetId === 'modal-container') closeModal()
     }
@@ -80,11 +72,11 @@ const ServicesModal = () => {
             ref={modalRef}
             onClick={modalClickHandler}
         >
-            <div id="modal-container" className="w-full h-full flex flex-col items-center justify-center bg-muted/50">
-                {!loading ? (
-                    <section className="flex flex-col rounded-xl bg-white w-[85%] lg:w-[70%] xl:w-[40%] max-h-[80%] xs:max-h-[65%] 
+            <div id="modal-container" className="w-full h-full flex flex-col items-center justify-center bg-muted/30">
+                {loading ? <Loading /> : (
+                    <section className="flex flex-col rounded-xl bg-white w-[85%] lg:w-[70%] xl:w-[45%] max-h-[80%] xs:max-h-[65%] 
                         sm:max-h-[75%] md:max-h-[85%] lg:max-h-[90%]">
-                        <header style={{ background: 'var(--modal-color)' }} className={`relative flex flex-col gap-1 p-4 text-white rounded-t-xl`}>
+                        <header className={`relative flex flex-col gap-1 p-4 ${modalColor} text-white rounded-t-xl`}>
                             <button
                                 type="button"
                                 title="Cerrar formulario"
@@ -104,23 +96,26 @@ const ServicesModal = () => {
                             <ModalFormComponent />
                         </div>
                     </section>
-                ) : <Loading />}
+                )}
             </div>
         </dialog>
     )
 }
 
 
-const successAlert = () => Swal.fire({
-    icon: 'success',
-    title: '¡Tu solicitud se ha creado exitosamente!',
-    showConfirmButton: true,
-    confirmButtonText: 'Aceptar',
-    buttonsStyling: false,
-    customClass: {
-        confirmButton: `dialog-alert btn`
-    }
-})
+const successAlert = (color: string) => {
+    const btnColor = `btn--${color}`
+    return Swal.fire({
+        icon: 'success',
+        title: '¡Tu solicitud se ha creado exitosamente!',
+        showConfirmButton: true,
+        confirmButtonText: 'Aceptar',
+        buttonsStyling: false,
+        customClass: {
+            confirmButton: `dialog-alert btn ${btnColor}`
+        }
+    })
+}
 
 
 export default ServicesModal

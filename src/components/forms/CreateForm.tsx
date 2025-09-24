@@ -15,6 +15,7 @@ export interface InputFieldType {
         value: string
     }[],
     attributes?: {
+        inputMode?: string,
         maxLength?: string,
         min?: string,
         max?: string,
@@ -28,12 +29,11 @@ interface BaseInputType extends Omit<InputFieldType, 'type'> {
     children: ReactNode
 }
 const BaseInput = ({ children, id, label, name }: BaseInputType) => {
-
     return (
         <div className="flex flex-col gap-2 w-full">
             <label htmlFor={id}>{label}</label>
             {children}
-            <ErrorMessage name={name} component={'div'} className="bg-red-50 text-red-800 rounded-lg px-4 py-1 mb-1 text-sm" />
+            <ErrorMessage name={name} component="div" className="bg-red-50 text-red-800 rounded-lg px-4 py-1 mb-1 text-sm" />
         </div>
     )
 }
@@ -61,7 +61,7 @@ const InputField = ({ id, name, label, placeholder, type, options, attributes }:
 
     return (
         <BaseInput id={id} name={name} label={label}>
-            <Field id={id} name={name} placeholder={placeholder} {...fieldProps}  {...attributes} className="w-full" />
+            <Field id={id} name={name} placeholder={placeholder} className="w-full" {...fieldProps}  {...attributes} />
         </BaseInput>
     )
 }
