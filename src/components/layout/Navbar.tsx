@@ -44,7 +44,7 @@ function Navbar() {
     useEffect(() => {
         if (navRef.current && burgerMenuRef.current) {
             const $navHeight = navRef.current.getBoundingClientRect().height - 3 + 'px'
-            burgerMenuRef.current.style.top = navHeight
+            burgerMenuRef.current.style.top = $navHeight
             setNavHeight($navHeight)
         }
         const handleResize = () => {

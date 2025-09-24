@@ -24,6 +24,5 @@ pnpm-debug.log*
 .idea/
 
 .qodo
-.vscode/
-/generated/prisma
+.vscode
 .vercel

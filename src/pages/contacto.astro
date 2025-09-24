@@ -16,18 +16,29 @@ const contactCards: CardDataType[] = [
         title: 'Teléfono',
         description: '(123) 456-7890',
         color: 'primary',
+        type: 'div'
     },
     {
         icon: EmailIcon.src,
         title: 'Email',
         description: 'rectoria@instecnico.edu.co',
         color: 'secondary',
+        type: 'link',
+        atributtes: {
+            href: 'https://mail.google.com/mail/?view=cm&fs=1&to=rectoria@instecnico.edu.co',
+            target: '_blank'
+        }
     },
     {
         icon: LocationIcon.src,
         title: 'Dirección',
         description: 'Calle 3a #768 Santander de Quilichao',
         color: 'primary',
+        type: 'link',
+        atributtes: {
+            href: 'https://maps.app.goo.gl/e27cNQvZkCB1CPtN9',
+            target: '_blank'
+        }
     }    
 ]
 ---
